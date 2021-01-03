@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>选项卡</title>
+		<link rel="stylesheet" type="text/css" href="lib/layui/css/layui.css" />
+		<script src="lib/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link rel="stylesheet" href="./css/font.css">
+		<link rel="stylesheet" href="./css/login.css">
+		<link rel="stylesheet" href="./css/xadmin.css">
+		<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="./lib/layui/layui.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+	<%
+	AdministratorDao administratorDao = new AdministratorDao();
+	List<Student> beanList = (List<Student>) StudentDao.getAllStudent();
+	%>
+		<div class="layui-tab layui-tab-card" lay-allowclose="true">
+			<ul class="layui-tab-title">
+				<li class="layui-this">学生基本信息</li>
+				<li>学生奖励信息</li>
+				<li>学生处罚信息</li>
+				<li>修改密码</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<div class="layui-card">
+						<div class="layui-card-body ">
+							<form class="layui-form layui-col-space5">
+								<div class="layui-input-inline layui-show-xs-block">
+									<input type="text" name="username" placeholder="email" autocomplete="off" class="layui-input"></div>
+								<div class="layui-input-inline layui-show-xs-block">
+									<button class="layui-btn" lay-submit="" lay-filter="sreach">
+                                <i class="layui-icon">&#xe615;</i></button>
+								</div>
+							</form>
+						</div>
+						<div class="layui-card-header">
+							<button class="layui-btn" onclick="xadmin.open('添加用户','./order-add.html',800,600)">
+                        <i class="layui-icon"></i>添加</button></div>
+						<div class="layui-card-body ">
+							<table class="layui-table layui-form">
+								<thead>
+									<tr>
+										<th>email</th>
+										<th>姓名</th>
+										<th>性别</th>
+										<th>学院</th>
+
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${student }" var="i">
+										<tr>
+											<td>${i.num}</td>
+											<td>${i.name}</td>
+											<td>${i.sex}</td>
+											<td>${i.major}</td>
+
+											<td class="td-manage">
+												<a title="修改" onclick="xadmin.open('编辑','order-view.html')" href="javascript:;">
+													<i class="layui-icon">&#xe63c;</i></a>
+												<a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+													<i class="layui-icon">&#xe640;</i></a>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">2</div>
+				<div class="layui-tab-item">3</div>
+				<div class="layui-tab-item">
+					<div class="login layui-anim layui-anim-up">
+						<div class="message">x-admin2.0-修改密码</div>
+						<div id="darkbannerwrap"></div>
+
+						<form method="post" class="layui-form" action="">
+							<input name="email" placeholder="email" type="text" lay-verify="required" class="layui-input">
+							<hr class="hr15">
+							<input name="ordpassword" lay-verify="required" placeholder="旧密码" type="password" class="layui-input">
+							<hr class="hr15">
+							<input name="newpassword" lay-verify="required" placeholder="新密码" type="password" class="layui-input">
+							<hr class="hr15">
+							<input value="修改" lay-submit lay-filter="login" style="width:100%;" type="submit">
+							<hr class="hr20">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			layui.use('element', function() {
+				var element = layui.element;
+			})
+		</script>
+	</body>
+
+</html>
